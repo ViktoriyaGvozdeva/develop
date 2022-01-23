@@ -6,6 +6,7 @@ import io.appium.java_client.MobileElement
 import io.appium.java_client.touch.WaitOptions
 import io.appium.java_client.touch.offset.PointOption
 import org.springframework.expression.TypeLocator
+import org.testng.AssertJUnit
 import utils.PlatformTouchAction
 import java.time.Duration
 import java.util.concurrent.TimeUnit
@@ -15,7 +16,6 @@ open class TestMedhods : BaseClass() {
 
     fun clickToElement(locatorType: String, locator: String) {
 
-        //сплеш/тап на крестик закрытия
         lateinit var element: MobileElement //создаём объект MobileElement
         when (locatorType) {
             locatorsTypes.androidId -> element = driver.findElement(MobileBy.id(locator))
@@ -44,7 +44,7 @@ open class TestMedhods : BaseClass() {
         moveCordY: Int,
     ) {
         PlatformTouchAction(driver)
-            .longPress(PointOption.point(100, startCordY))
+            .longPress(PointOption.point(startCordX, startCordY))
             .moveTo(PointOption.point(moveCordX, moveCordY))
             .release()
             .perform()
@@ -59,6 +59,18 @@ open class TestMedhods : BaseClass() {
             .tap(PointOption.point(cordX, cordY))
             .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)))
             .perform()
+    }
+
+    //проверка доступности элемента
+    fun checkAvailableElement(locatorType: String, locator: String) {
+        var checkAvailableElement = false // создаём объект типа Boolean
+        when (locatorType) {
+            "id" -> checkAvailableElement = driver.findElement(MobileBy.id(locator)).isEnabled
+            "AccessibilityId" -> checkAvailableElement = driver.findElement(MobileBy.AccessibilityId(locator)).isEnabled
+            "xpath" -> checkAvailableElement = driver.findElement(MobileBy.xpath(locator)).isEnabled
+        }//у поиска происходит обращение к атрибуту и возврат true или false
+
+        AssertJUnit.assertTrue(checkAvailableElement)//проверка значения checkAvailableElement
     }
 
 

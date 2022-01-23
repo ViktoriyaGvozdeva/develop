@@ -1,13 +1,13 @@
 package constructor_classes
 
 class LocatorsConstructor constructor(
-    val androidAccesibilityId: String = "",
+    val androidAccessibilityId: String = "",
     val androidId: String = "",
     val androidXpath: String = "",
 )
 
 val example = LocatorsConstructor(
-    androidAccesibilityId = "",
+    androidAccessibilityId = "",
     androidId = "",
     androidXpath = "",
 )

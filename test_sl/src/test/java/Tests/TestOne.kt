@@ -1,14 +1,11 @@
 package Tests
 
 import constructor_classes.locatorsTypes
-import io.appium.java_client.MobileBy
-import io.appium.java_client.MobileElement
-import locators.SplashScreenLocators
+import jdk.nashorn.internal.runtime.regexp.joni.Config.log
+import locators.*
 import main.TestMedhods
 import org.testng.annotations.Test
-import org.xml.sax.Locator
 import java.util.concurrent.TimeUnit
-import javax.xml.soap.Text
 
 class TestOne : TestMedhods() {
 
@@ -16,6 +13,7 @@ class TestOne : TestMedhods() {
 
     //авторизация при первом старте приложения
     fun testOne() {
+        log.println("Запуск Теста1")
         TimeUnit.SECONDS.sleep(1)
 
         //сплеш/тап на крестик закрытия
@@ -27,62 +25,84 @@ class TestOne : TestMedhods() {
         //ввод телефона в поле авторизации
         inputTextInField(
             locatorType = locatorsTypes.androidId,
-            locator = "ru.sportmaster.app.handh.dev:id/editTextPhone",
-            inputText = "999 999 99 67"
+            locator = AuthorizationScreenLocators().editTextPhone.androidId,
+            inputText = "999 999 99 67",
         )
         TimeUnit.SECONDS.sleep(2)
 
         //тап "Получить код"
         clickToElement(
             locatorType = locatorsTypes.androidId,
-            locator = "ru.sportmaster.app.handh.dev:id/buttonGetCode"
+            locator = AuthorizationScreenLocators().tapButtonGetCode.androidId
         )
 
         //ввод кода sms
         inputTextInField(
             locatorType = locatorsTypes.androidId,
-            locator = "ru.sportmaster.app.handh.dev:id/pinCodeEditText",
+            locator = InputCodeScreenLocators().pinCodeEditText.androidId,
             inputText = "1111"
         )
+        log.println("Авторизация прошла успешно")
         TimeUnit.SECONDS.sleep(5)
+
 
         //тап "Использовать геопозицию во время использования приложения"
         clickToElement(
             locatorType = locatorsTypes.androidId,
-            locator = "com.android.permissioncontroller:id/permission_allow_foreground_only_button"
+            locator = PermissionControllerLocators().allowForegroundOnlyButton.androidId
         )
 
         //тап "Другой город"
         clickToElement(
             locatorType = locatorsTypes.androidId,
-            locator = "android:id/button2"
+            locator = SelectCityScreenLocators().tapPopUpButtonAnotherCity.androidId
         )
 
         //тап на затемнённый экран
-        clickToElement(
-            locatorType = locatorsTypes.androidId,
-            locator = "ru.sportmaster.app.handh.dev:id/qsgCitySearch"
+        tapByCoordinates(
+            cordX = 490,
+            cordY = 1307,
         )
 
         //выбор города Москва
         clickToElement(
             locatorType = locatorsTypes.androidXPath,
-            locator = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ViewFlipper/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]"
+            locator = SelectCityScreenLocators().selectCityMoscow.androidXpath
         )
 
         //тап "Профиль"
         clickToElement(
             locatorType = locatorsTypes.androidId,
-            locator = "ru.sportmaster.app.handh.dev:id/profile_graph"
+            locator = BottomNavigationLocators().tapProfileGraph.androidId
         )
 
+        //тап "Редактировать профиль"
+        clickToElement(
+            locatorType = locatorsTypes.androidId,
+            locator = ProfileScreenLocators().tapButtonEditProfile.androidId
+        )
+        TimeUnit.SECONDS.sleep(5)
+
+        //скролл экрана вниз
         swipeOnScreen(
-            startCordX = 12,
-            startCordY = 45,
-            moveCordX = 12,
-            moveCordY = 23,
+            startCordX = 490,
+            startCordY = 1588,
+            moveCordX = 505,
+            moveCordY = 1258,
         )
 
+        //тап "Выйти из профиля"
+        clickToElement(
+            locatorType = locatorsTypes.androidId,
+            locator = ProfileScreenLocators().tapButtonLogout.androidId
+        )
+
+        //проверка доступности кнопки "Войти"
+        checkAvailableElement(
+            locatorType = locatorsTypes.androidId,
+            locator = SignInScreenLocators().buttonSignIn.androidId
+        )
+        log.println("Экран авторизации. Кнопка <Войти> доступна.")
         TimeUnit.SECONDS.sleep(10)
     }
 
