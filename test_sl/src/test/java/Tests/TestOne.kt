@@ -81,6 +81,28 @@ class TestOne : TestMedhods() {
             locatorType = locatorsTypes.androidId,
             locator = ProfileScreenLocators().tapButtonEditProfile.androidId
         )
+
+        //ввод данных в поле "Фамилия"
+        inputTextInField(
+            locatorType = locatorsTypes.androidId,
+            locator = ProfileScreenLocators().editTextLastName.androidId,
+            inputText = "Тестовая",
+        )
+
+        //проверка текста в поле "Фамилия"
+        checkTextInElement(
+            locatorType = locatorsTypes.androidId,
+            locator = ProfileScreenLocators().editTextLastName.androidId,
+            text = "Тестовая"
+        )
+        log.println("Текст в поле <Фамилия> соответствует условиям")
+
+        //очистка поля "Фамилия"
+        cleanField(
+            locatorType = locatorsTypes.androidId,
+            locator = ProfileScreenLocators().editTextLastName.androidId,
+        )
+        log.println("Поле <Фамилия> очищено")
         TimeUnit.SECONDS.sleep(5)
 
         //скролл экрана вниз

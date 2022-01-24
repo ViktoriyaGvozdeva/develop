@@ -10,4 +10,8 @@ class ProfileScreenLocators {
     val tapButtonLogout = LocatorsConstructor(
         androidId = "ru.sportmaster.app.handh.dev:id/buttonLogout"
     )
+
+    val editTextLastName = LocatorsConstructor(
+        androidId = "ru.sportmaster.app.handh.dev:id/editTextLastName"
+    )
 }

@@ -73,5 +73,33 @@ open class TestMedhods : BaseClass() {
         AssertJUnit.assertTrue(checkAvailableElement)//проверка значения checkAvailableElement
     }
 
+    //проверка текста в элементе
+    fun checkTextInElement(locatorType: String, locator: String, text: String) {
+        lateinit var element: MobileElement
+        var elementAttribute = "" // создаем объект с пустой строкой
+        when (locatorType) {
+            "id" -> element = driver.findElement(MobileBy.id(locator))
+            "AccessibilityId" -> element = driver.findElement(MobileBy.AccessibilityId(locator))
+            "xpath" -> element = driver.findElement(MobileBy.xpath(locator))
+        }
+        elementAttribute =
+            element.getAttribute("text") // в найденном элементе мы находим текст по атрибуту и передаем его в elementAttribute
+
+        AssertJUnit.assertEquals(
+            elementAttribute,
+            text
+        ) // сравнение текста, взятого из атрибута элемента, с текстом, который мы передали в функцию. Данная функция возвращает true или false
+    }
+
+    //очищение поля
+    fun cleanField (locatorType: String, locator: String) {
+        lateinit var element: MobileElement
+        when (locatorType) {
+                "id" -> element = driver.findElement(MobileBy.id(locator))
+                "AccessibilityId" -> element = driver.findElement(MobileBy.AccessibilityId(locator))
+                "xpath" -> element = driver.findElement(MobileBy.xpath(locator))
+        }
+        element.clear() // очищение поля
+    }
 
 }
