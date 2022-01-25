@@ -5,14 +5,12 @@ import io.appium.java_client.MobileBy
 import io.appium.java_client.MobileElement
 import io.appium.java_client.touch.WaitOptions
 import io.appium.java_client.touch.offset.PointOption
-import org.springframework.expression.TypeLocator
 import org.testng.AssertJUnit
 import utils.PlatformTouchAction
 import java.time.Duration
 import java.util.concurrent.TimeUnit
-import javax.xml.soap.Text
 
-open class TestMedhods : BaseClass() {
+open class TestMethods : BaseClass() {
 
     fun clickToElement(locatorType: String, locator: String) {
 

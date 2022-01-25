@@ -3,18 +3,17 @@ package Tests
 import constructor_classes.locatorsTypes
 import jdk.nashorn.internal.runtime.regexp.joni.Config.log
 import locators.*
-import main.TestMedhods
+import main.TestMethods
 import org.testng.annotations.Test
 import java.util.concurrent.TimeUnit
 
-class TestOne : TestMedhods() {
-
-    @Test
+class TestOne : TestMethods() {
 
     //авторизация при первом старте приложения
-    fun testOne() {
+    @Test fun testOne() {
         log.println("Запуск Теста1")
         TimeUnit.SECONDS.sleep(1)
+        //описать логику, нужен ли нам авторизованный пользователь
 
         //сплеш/тап на крестик закрытия
         clickToElement(
